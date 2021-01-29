@@ -1,0 +1,49 @@
+package kr.or.ddit.ioc;
+
+import static org.junit.Assert.*;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import kr.or.ddit.user.model.UserVo;
+
+@ContextConfiguration("classpath:/kr/or/ddit/ioc/typeConversion.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+public class TypeConversionTest {
+
+	private static final Logger logger = LoggerFactory.getLogger(TypeConversionTest.class);
+	
+	@Resource(name="user")
+	private UserVo user;
+	
+//	@Test
+//	public void usertest() {
+//		logger.debug("user.getAge():{}", user.getAge());
+		
+//	}
+	
+	@Test
+	public void userReg_dttest() {
+		logger.debug("user.getAge():{}", user.getReg_dt());
+		
+	}
+	@Test
+	public void userHire_dttest() {
+		logger.debug("user.getHire_dt():{}", user.getHire_dt());
+		
+	}
+	@Test
+	public void userPricetest() {
+		logger.debug("user.getPrice():{}", user.getPrice());
+		
+		
+	}
+	
+
+}

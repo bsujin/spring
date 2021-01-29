@@ -1,10 +1,60 @@
 package kr.or.ddit.user.model;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 public class UserVo {
-	String userid;
-	String usernm;
+	private String userid;
+	private String usernm;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date reg_dt;
+	
+	// 만약 날짜가 다른 필드에 하나 더 있음
+	// 다르게 포맷을 지정해도 가능하다 
+	@DateTimeFormat(pattern = "MM-dd-yyy")
+	private Date hire_dt;
+	
+	// 숫자도 format을 지정해줄 수 있다  1000=> 1,000
+	@NumberFormat(pattern = "#,###")
+	private int price;
+	
+	
+//	int age;
+//	
+//	public int getAge() {
+//		return age;
+//	}
+//
+//	public void setAge(int age) {
+//		this.age = age;
+//	}
+	
+
+	public int getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+
+	public Date getHire_dt() {
+		return hire_dt;
+	}
+
+
+	public void setHire_dt(Date hire_dt) {
+		this.hire_dt = hire_dt;
+	}
+
 
 	public UserVo() {}
+
 
 	// 인자가 있는 생성자 만들기 
 	public UserVo(String userid, String usernm) {
@@ -26,10 +76,19 @@ public class UserVo {
 		this.usernm = usernm;
 	}
 	
+	public Date getReg_dt() {
+		return reg_dt;
+	}
+
+	public void setReg_dt(Date reg_dt) {
+		this.reg_dt = reg_dt;
+	}
+
+
 	@Override
 	public String toString() {
-		return "UserVo [userid=" + userid + ", usernm=" + usernm + "]";
+		return "UserVo [userid=" + userid + ", usernm=" + usernm + ", reg_dt=" + reg_dt + "]";
 	}
-	
+
 	
 }
