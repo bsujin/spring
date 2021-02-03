@@ -26,7 +26,35 @@
 		 -->
 		<mvc:annotation-driven/>
 		
-		<!-- view resolver 등록 ( 여러개를 등록하는 것이 가능)
+<!-- 		Tiles를 처리해줄 bean Resolver 등록 -->
+		<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+			<property name="order" value="0"></property>
+<!-- 			tiles view의 클래스명과 패키지명 적어주기  -->
+			<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
+		</bean>
+		
+		<bean name="tilesConfigure" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+			<property name="definitions">
+				<list>
+					<value>classpath:/kr/or/ddit/config/tiles/tiles-definition.xml</value>
+				</list>
+			</property>
+		</bean>
+		
+		<!--  view Resolver 우선순위
+			order 필드 값이 낮을수록 우선순위가 높다 
+		 -->
+		<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+			<property name="order" value="1"/>
+		</bean>
+		
+		<!-- view 객체, 사용할 때 id를 적어주면 된다  -->
+		<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+		<bean id="fd" class="kr.or.ddit.view.FileDownloadView"/>
+		<bean id="userExcelDownloadView" class="kr.or.ddit.view.ExcelDownloadView"></bean>
+		
+		
+		<!-- view resolver 등록 ( 여러개를 등록하는 것이 가능) : 후손 
 			jsp ==> InternalResourceViewResolver
 			
 			prefix + view name + suffix 
@@ -36,10 +64,10 @@
 		
 		* WEB-INF는 서버안에서만 접근 가능(보안상) , 밖에서 접근이 안된다
 		 	- JSP관련 된것은 WEB-INF 안에 넣어야 한다     
+		id를 안적어도 된다 / 이쪽으로 forward가 된다   
 		 -->
-		 
-<!-- 		 이쪽으로 forward가 된다   -->
 		 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="order" value="2"/>
 		 	<property name="prefix" value="/WEB-INF/views/"/> <!-- 접두어 -->
 		 	<property name="suffix" value=".jsp"/> <!-- 접미어 -->
 		 </bean>

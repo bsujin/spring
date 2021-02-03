@@ -14,41 +14,27 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 <title>user.Jsp</title>
-
 <%@include file="/WEB-INF/views/common/common_lib.jsp"%>
-<link href="${cp }/css/dashboard.css" rel="stylesheet">
-<link href="${cp }/css/blog.css" rel="stylesheet">
+
 <script type="text/javascript">
 $(function(){
 	$("#modifyBtn").on("click", function(){
 		$("#frm").attr("method", "get");
-		$("#frm").attr("action", "${cp }/user/modifyUser");
-		$("#frm").attr("action", "${cp }/user/modifyUser");
+		$("#frm").attr("action", "${cp }/userbody/modifyUserTiles");
+		$("#frm").attr("action", "${cp }/userbody/modifyUserTiles");
 		$("#frm").submit();
 	});
 	
 	$("#deleteBtn").on("click", function(){
 		$("#frm").attr("method", "post");
-		$("#frm").attr("action", "${cp }/deleteUser");
-		$("#frm").attr("action", "${cp }/deleteUser");
+		$("#frm").attr("action", "${cp }/userbody/deleteUserTiles");
+		$("#frm").attr("action", "${cp }/userbody/deleteUserTiles");
 		$("#frm").submit();
 	});
 })
 </script>
-</head>
-
-<body>
-	<%@include file="/WEB-INF/views/common/header.jsp"%>
-	<div class="container-fluid">
-		<div class="row">
-
-			<div class="col-sm-3 col-md-2 sidebar">
-				<%@include file="/WEB-INF/views/common/left.jsp"%>
-			</div>
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
+	<div class="row">
 				<form class="form-horizontal" role="form" id="frm">
-
 					<input type="hidden" name="userid" value="${user.userid}" />
 					<div class="form-group">
 						<label for="userNm" class="col-sm-2 control-label">사용자 아이디</label>
@@ -62,8 +48,8 @@ $(function(){
 						<div class="col-sm-10">
 							<%-- 								<img src="${cp }/profile/${user.userid }.png" /> <br>
 								사용자 아이디를 파라미터로 보낸다  --%>
-							<a href="/user/profileDownload?userid=${user.userid }">   <%-- 이미지 클릭 시 파일 다운로드 --%>
-							<img src="/user/profile?userid=${user.userid }" /> <br>
+							<a href="/profileDownload?userid=${user.userid }">   <%-- 이미지 클릭 시 파일 다운로드 --%>
+							<img src="/profile?userid=${user.userid }" /> <br>
 							</a>
 						</div>
 					</div>
@@ -133,8 +119,4 @@ $(function(){
 						</div>
 					</div>
 				</form>
-			</div>
-		</div>
 	</div>
-</body>
-</html>

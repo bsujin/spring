@@ -2,14 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@page import="kr.or.ddit.user.model.UserVo"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
 <title>userModify.Jsp</title>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <%@include file="/WEB-INF/views/common/common_lib.jsp"%>
@@ -35,17 +27,10 @@ $(function(){
 </head>
 
 <body>
-	<%@include file="/WEB-INF/views/common/header.jsp"%>
-	
-	<div class="container-fluid">
 		<div class="row">
 
-			<div class="col-sm-3 col-md-2 sidebar">
-				<%@include file="/WEB-INF/views/common/left.jsp"%>
-			</div>
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-   			  <form class="form-horizontal" role="form"  action="${cp }/user/modifyUser" method="post"
+		
+   			  <form class="form-horizontal" role="form"  action="${cp }/userbody/modifyUserTiles" method="post"
    			  enctype="multipart/form-data">
                
                <input type="hidden" name="userid" value="${user.userid }" />
@@ -61,7 +46,7 @@ $(function(){
 						<label for="profile" class="col-sm-2 control-label">사용자 사진</label>
 						<div class="col-sm-10">
 <%-- 							<img src="${cp }/profile/${user.userid }.png" /> <br> --%>
-							<img src="/profile?userid=${user.userid }" /> <br> <br>
+							<img src="/user/profile?userid=${user.userid }" /> <br> <br>
 							<input type="file" class="form-control" name="profile"/>
 						</div>
 					</div>
@@ -125,7 +110,3 @@ $(function(){
                </div>
             </form>
          </div>
-      </div>
-   </div>
-</body>
-</html>

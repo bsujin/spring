@@ -3,8 +3,10 @@
 <div class="col-sm-3 col-md-2 sidebar">
 	<ul class="nav nav-sidebar">
 		<li class="active"><a href="${cp }/main.jsp">Main <span class="sr-only">(current)</span></a></li>
-		<li class="active"><a href="${cp }/user/allUser">현재 사용자</a></li>
+		<li class="active"><a href="${cp }/user/allUser">전체 사용자</a></li>
 		<li class="active"><a href="${cp }/user/pagingUser">사용자 페이징 리스트</a></li>
+		<li class="active"><a href="${cp }/userbody/allUserTiles">전체 사용자</a></li>
+		<li class="active"><a href="${cp }/userbody/pagingUserTiles">사용자 페이징 리스트(Tiles)</a></li>
 		
 		<%--
 			/alluser 요청을 처리할 servlet(controller)

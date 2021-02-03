@@ -5,10 +5,20 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
 
 <title>registUsr.Jsp</title>
 
 <%@ include file="/WEB-INF/views/common/common_lib.jsp"%>
+
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -42,12 +52,25 @@ function initData(){
 	$("#zipcode").val("34940");
 }
 </script>
+</head>
+
+<body>
 	
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	
+	<div class="container-fluid">
+		<div class="row">
+
+			<div class="col-sm-3 col-md-2 sidebar">
+				<%@ include file="/WEB-INF/views/common/left.jsp"%>
+			</div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				user : [${userVo }]
 				spring message :  <spring:message code="LANG"/>
 				spring message :  <spring:message code="GREETING" arguments="brown"/>
 				<form class="form-horizontal" role="form"
-					  action="${cp }/userbody/registUserTiles" method="post" enctype="multipart/form-data">
+					  action="${cp }/user/registUser" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">사용자 아이디</label>
 						<div class="col-sm-10">
@@ -126,3 +149,8 @@ function initData(){
 						</div>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

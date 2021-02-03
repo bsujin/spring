@@ -1,10 +1,16 @@
 package kr.or.ddit.user.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +48,7 @@ public class UserController {
 	}
 
 	@RequestMapping("pagingUser")
-	public String pagingUser(@RequestParam(defaultValue = "1") 
-	int page, @RequestParam(defaultValue = "5") int pageSize,
+	public String pagingUser(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int pageSize,
 			Model model) {
 
 		PageVo pageVo = new PageVo(page, pageSize);
@@ -63,7 +68,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "modifyUser", method = RequestMethod.POST)
-	public String modifyUser(UserVo userVo,Model model) {
+	public String modifyUser(UserVo userVo, Model model) {
 		logger.debug("uservo : {}", userVo);
 //		userVo = new UserVo("test","대덕인재","test", new Date(),"개발원 m", "대전시 중구 중앙로76","4층 대덕인재개발원","34940","brown.png","uuid-generated-filename.png");
 		int updateCnt = userService.modifyUser(userVo);
@@ -74,8 +79,9 @@ public class UserController {
 		}
 
 	}
+
 	@RequestMapping(value = "modifyUser", method = RequestMethod.GET)
-	public String modifyUser(String userid,Model model) {
+	public String modifyUser(String userid, Model model) {
 //		userVo = new UserVo("test","대덕인재","test", new Date(),"개발원 m", "대전시 중구 중앙로76","4층 대덕인재개발원","34940","brown.png","uuid-generated-filename.png");
 		UserVo userVo = userService.selectUser(userid);
 		model.addAttribute("user", userVo);
@@ -83,37 +89,35 @@ public class UserController {
 
 	}
 
-
 	@RequestMapping(value = "registUser", method = RequestMethod.POST)
 	public String registUser(UserVo userVo, RedirectAttributes ra, MultipartFile profile) {
 		logger.debug("registUser 진입");
 		logger.debug("uservo : {}", userVo);
-		if(userVo.getUserid().length() < 5) {
-			
+		if (userVo.getUserid().length() < 5) {
+
 		}
 		try {
 			// 파일 이름과 확장자를 가져오기
 			String fileExtension = FileUtil.getFileExtension(profile.getOriginalFilename());
 			// 파일확장자가 없는 경우는 상관 없으나 존재하면 toString 뒤에 확장자를 붙여줘야한다
 			String realFilename = UUID.randomUUID().toString() + fileExtension;
-			
-			 userVo.setFilename(profile.getOriginalFilename());
-			 userVo.setRealfilename(realFilename);
-			 
-			 profile.transferTo(new File("d:\\upload\\" + profile.getOriginalFilename()));
-			 
-			} catch (IllegalStateException | IOException e) {
-					e.printStackTrace();
-			}
+
+			userVo.setFilename(profile.getOriginalFilename());
+			userVo.setRealfilename(realFilename);
+
+			profile.transferTo(new File("d:\\upload\\" + profile.getOriginalFilename()));
+
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
 		int cnt = userService.registerUser(userVo);
 		if (cnt == 1) {
 			return "redirect:/user/paginUser";
 		}
 		ra.addFlashAttribute("msg", "회원가입오류");
-		return "redirect:/user/registerUser";
-		}
-	
-	
+		return "redirect:/user/registUser";
+	}
+
 	@RequestMapping(value = "registUser", method = RequestMethod.GET)
 	public String registUser() {
 		logger.debug("registUser get 진입");
@@ -130,7 +134,7 @@ public class UserController {
 		} else {
 			return "redirect:/detailUser?userid=" + userid;
 		}
-
 	}
+
 
 }

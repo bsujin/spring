@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+										<!-- 사용할 jsp를 정의, layout을 잡는 역할   -->
+  <definition name="basic.layout" template="/WEB-INF/views/common/layout.jsp">
+    <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+    <put-attribute name="left" value="/WEB-INF/views/common/left.jsp" />
+    <put-attribute name="body" value="" />
+  </definition>
+  
+	<!--   기본 defintion을 extends(상속)받아 사용, body를 설정해주기   -->
+<!-- 방법 1)  <definition name="tiles.user.pagingUser" extends="basic.layout"> -->
+<!--   컨텐츠 부분만 만들어 놓은 jsp값을 가져온다 (paginUser부분만) -->
+<!--   	<put-attribute name="body" value="/WEB-INF/views/user/pagingUserBody.jsp"/> -->
+<!--   </definition> -->
+
+<!-- 방법2
+		-하나씩 하기 번거로움  
+	-> 전체 다 바꿔야 하므로 마스킹 문자 사용 : 자동으로 적용해준다
+	 - 마스킹 문자 : definition을 크게 만들지 않아도 사용이 가능하다
+	 - 추가적으로 폴더가 필요하면 다시 생각해보기 
+	 - 사용자 관련 jsp : user   /WEB-INF/views/user/.jsp?  
+	 - 사용자 관련 jsp : member   /WEB-INF/views/member/.jsp?
+	 ==>  전체 적용 가능하다 
+	   
+	규칙 : viewname을 이렇게 리턴, 
+	tiles.user.allUser ==> allUserBody.jsp
+	tiles.user.allUser ==> registerUserBody.jsp
+ -->
+  <definition name="tiles.*.*" extends="basic.layout">
+<!--   컨텐츠 부분만 만들어 놓은 jsp값을 가져온다 (paginUser부분만)-->
+  	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}Body.jsp"/>
+  </definition>
+  
+</tiles-definitions>
+

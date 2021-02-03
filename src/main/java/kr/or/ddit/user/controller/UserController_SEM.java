@@ -1,10 +1,17 @@
 package kr.or.ddit.user.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +57,7 @@ public class UserController_SEM {
 		
 		return "user/pagingUser";
 	}
-
+	
 	//@RequestMapping("pagingUser")
 	public String pagingUser(PageVo pageVo) {
 		
@@ -121,7 +128,9 @@ public class UserController_SEM {
 	
 	// bindingResult 객체는 command 객체 바로 뒤에 인자로 기술해야 한다 
 	@RequestMapping(path="registUser", method=RequestMethod.POST)
-	public String regist(UserVo userVo, MultipartFile profile, Model model, BindingResult result) {
+// 1.	public String regist(UserVo userVo, BindingResult result, MultipartFile profile, Model model) {
+//2.
+		public String regist(@Valid UserVo userVo, BindingResult result, MultipartFile profile, Model model) {
 		
 		//검증하는 메서드
 		new UserVoValidator().validate(userVo, result);
@@ -180,6 +189,59 @@ public class UserController_SEM {
 			return "redirect:/user/user?userid="+ userid;
 		}
 	}
+	
+	// localhost:8081/user/excelDownload
+	// 사용자 전체 엑셀 다운로드
+	@RequestMapping("excelDownload")
+	public String excelDownload(Model model) {
+		List<String> header = new ArrayList<String>();
+		header.add("사용자 아이디");
+		header.add("사용자 이름");
+		header.add("사용자 별명");
+
+		model.addAttribute("header", header);
+		model.addAttribute("data", userService.selectAllUser());
+		return "userExcelDownloadView";
+	}
+
+	@RequestMapping("profile")
+	public void profile(HttpServletResponse resp, String userid, HttpServletRequest req) {
+		// userid 파라미터를 이용하여 userService 객체를 통해 사용자의 사진 파일 이름을 획득
+
+		resp.setContentType("image");
+		UserVo userVo = userService.selectUser(userid);
+		logger.debug("userVo : {}", userVo);
+		String path = "";
+		if (userVo.getRealfilename() == null) {
+			// application 객체 - 지원해준는것이 없어서 servletRequest를 받아온다
+			path = req.getServletContext().getRealPath("/image/unknown.png");
+		} else {
+			path = userVo.getRealfilename();
+		}
+
+		// 파일 입출력을 통해 사진을 읽어들여 response 객체의 ouputStream으로 응답을 생성한다
+		logger.debug("path-profile{}", path);
+
+		try {
+
+			FileInputStream fis = new FileInputStream(path);
+			ServletOutputStream sos = resp.getOutputStream();
+
+			byte[] buff = new byte[512];
+			// buff사이즈만큼 읽어준다 - 더이상 읽을 데이터가 없을때까지 읽어줌
+			while (fis.read(buff) != -1) {
+				sos.write(buff);
+			}
+
+			// 사용한 자원을 반납해준다
+			fis.close();
+			sos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	
 }
 
