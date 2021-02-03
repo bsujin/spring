@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@ContextConfiguration("classpath:/kr/or/ddit/ioc/Ioc.xml")
+@ContextConfiguration(locations = {"classpath:/kr/or/ddit/ioc/Ioc.xml",
+		"classpath:/kr/or/ddit/config/spring/datasource-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CollectionBeanTest {
 

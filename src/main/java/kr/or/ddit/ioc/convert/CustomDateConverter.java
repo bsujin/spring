@@ -19,8 +19,8 @@ public class CustomDateConverter implements Converter<String, Date>{
 	// source : 2021-01-11, yyyy-mm-dd
 	@Override
 	public Date convert(String source) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 		Date date = null;	 
 		try {
 			//date라는 지역변수에 담긴다

@@ -35,15 +35,15 @@ public class TypeConversionTest {
 	}
 	@Test
 	public void userHire_dttest() {
-		logger.debug("user.getHire_dt():{}", user.getHire_dt());
+//		logger.debug("user.getHire_dt():{}", user.getHire_dt());
 		
 	}
-	@Test
-	public void userPricetest() {
-		logger.debug("user.getPrice():{}", user.getPrice());
-		
-		
-	}
+//	@Test
+//	public void userPricetest() {
+//		logger.debug("user.getPrice():{}", user.getPrice());
+//		
+//		
+//	}
 	
 
 }

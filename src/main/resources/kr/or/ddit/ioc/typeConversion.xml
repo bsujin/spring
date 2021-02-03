@@ -6,10 +6,11 @@
 	<bean id="user" class="kr.or.ddit.user.model.UserVo">
 		<!-- age라는 필드가 없어 에러 발생 (주석) <property name="age" value="5"/> -->
 		<property name="reg_dt" value="2021-01-11" />
-		<property name="hire_dt" value="01-29-2021" />
-		<property name="price" value="1,000" />
+<!-- 		<property name="hire_dt" value="01-29-2021" /> -->
+<!-- 		<property name="price" value="1,000" /> -->
 	</bean>
 
+<!-- date formatt 설정 1) : set으로 설정한다 - property  -->
 	<!-- 이름을 맞춰서 등록해야한다 -->
 <!-- 	<bean id="conversionService" -->
 <!-- 		class="org.springframework.context.support.ConversionServiceFactoryBean"> -->
@@ -17,17 +18,18 @@
 <!-- 			<set> -->
 <!-- 				해당 필드에 setter 메서드가 존재해야한다 -->
 <!-- 				<bean class="kr.or.ddit.ioc.convert.CustomDateConverter"> -->
-<!-- 					format 설정을 바꾼다 -->
-<!-- 					<property name="dateFormat" value="yyy-dd-MM" /> -->
+<!-- 				format 설정을 바꾼다 -->
+<!-- 					<property name="dateFormat" value="yyyy-dd-MM" /> -->
 <!-- 				</bean> -->
 <!-- 			</set> -->
 <!-- 		</property> -->
 <!-- 	</bean> -->
 
+<!-- date formatt 설정 2) : set으로 설정한다 - property  -->
 	<!-- 1. 스프링에서 제공하는 FormattingConversiongServiceFactoryBean 클래스를 스프링 빈으로 
 		등록 ( 위에서 언급한 스프링 빈 이름을 준수해야함) 
 			 2. Value 객체에서 어노테이션으로 변환할 필드에 적용 -> user가 value 객체 
 			 -->
-	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"/>
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"/>
 	
 </beans>

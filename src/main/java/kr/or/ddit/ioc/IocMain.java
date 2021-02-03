@@ -29,7 +29,7 @@ public class IocMain {
 		UserDao userDao = (UserDao) context.getBean("userDao");
 		
 		// 3. 스프링 컨테이너에서 관리되고 있는 빈이 잘 만들어 졌는지 확인
-		UserVo userVo = userDao.getUser("brown");
+		UserVo userVo = userDao.selectUser("brown");
 		
 //		logger.debug(" dao - userVo : {}", userVo);
 		
@@ -37,7 +37,7 @@ public class IocMain {
 		// getUser 메소드를 call, 반환된 값(userVo)을 logger를 통해 출력
 		
 		UserService userService = (UserService) context.getBean("userService");
-		UserVo vo = userService.getUser("brown");
+		UserVo vo = userService.selectUser("brown");
 		
 //		logger.debug(" service - userVo :{}", vo);
 		

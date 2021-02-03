@@ -22,15 +22,16 @@ public class ComponentScanJavaTest {
 	@Resource(name = "userDao")
 	private UserDao userDao;
 
-	@Resource(name = "userServiceImpl")
+	@Resource(name = "userService")
 	private UserService userService;
 
 	@Test
 	public void userDaoImplSpringBeantTest() {
 		assertNotNull(userDao);
 
-		UserVo userVo = userDao.getUser("brown");
-		assertEquals("브라운", userVo.getUsernm());
+		UserVo userVo = userDao.selectUser("brown");
+//		assertEquals("브라운", userVo.getUsernm());
+		assertEquals("수진", userVo.getUsernm());
 
 	}
 
@@ -39,8 +40,9 @@ public class ComponentScanJavaTest {
 	public void userServiceImplSptringBeantTest() {
 		assertNotNull(userService);
 
-		UserVo userVo = userService.getUser("brown");
-		assertEquals("브라운", userVo.getUsernm());
+		UserVo userVo = userService.selectUser("brown");
+//		assertEquals("브라운", userVo.getUsernm());
+		assertEquals("수진", userVo.getUsernm());
 	}
 
 }
