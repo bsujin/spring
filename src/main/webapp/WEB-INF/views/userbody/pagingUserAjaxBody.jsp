@@ -6,65 +6,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<title>PagingUser.Jsp</title>
-<%@include file="/WEB-INF/views/common/common_lib.jsp"%>
 <script type="text/javascript">
 	$(function() {
-		
-		// 문서가 로딩이 되자마자 실행된다 
-		// ajax를 통해 사용자 리스트를 가져온다 : 1page, 5pageSize
-	/* 	$.ajax({
-// 방법1		
-// 			url : "/ajaxUser/pagingUserAjax",
-			
-			data : "page=1&pageSize=5",
-// 			data : {page : 1 , pageSize : 5}
-		
-			// 서버쪽에서 보내준 데이터를 인자로 받는다 - 콜백 (호출해준 함수를 등록 ) 
-			success : function(data) {
-				console.log(data);
-// 				$.each(루프돌 대상, 처리해줄 함수(인덱스,값) ) 
-					var html = "";
-				$.each(data.userList, function(i,user) {
-// 					userTbody에 넣기 (문자를 처리해주기 위해 '' 또는 escape 문자 사용 )
-// 				html += "<tr class=\"user"\ data-userid=''> ";
-				html += "<tr class='user' data-userid='"+ user.userid +"'> ";
-				html += "	<td>"+user.userid +"</td>                     ";
-				html += "	<td>"+user.usernm +"</td>                     ";
-				html += "	<td>"+user.alias +"</td>                     ";
-// 				html += "	<td>"+user.reg_dt+"</td>                     ";
-				html += "	<td>"+user.reg_dt_fmt+"</td>                     ";
-				html += "</tr>                            ";
-					
-// 				$('#userTbody').append(html);
-				$('#userTbody').html(html);
-// 				document.getElementById("userTbody").innerHTML = html;
-				
-				});
-			}
-		}); */
-/* 		$.ajax({
-// 방법2
-			url : "/ajaxUser/pagingUserAjaxHtml",
-			
-			data : "page=1&pageSize=5",
-// 			data : {page : 1 , pageSize : 5}
-		
-			// 서버쪽에서 보내준 데이터를 인자로 받는다 - 콜백 (호출해준 함수를 등록 ) 
-			success : function(data) {
-				console.log(data);
-// 				$.each(루프돌 대상, 처리해줄 함수(인덱스,값) ) 
-// 					userTbody에 넣기 (문자를 처리해주기 위해 '' 또는 escape 문자 사용 )
-					
-// 				$('#userTbody').html(data);
-// 				####을 기준으로 구분하기
-			var html = data.split("####################");
-				$('#userTbody').html(html[0]);
-				$('#pagination').html(html[1]);
-// 				$('#pagination').html(data);
-				
-			}
-		}); */
+
 		
 		pagingUserAjax(1,5);
 		

@@ -53,3 +53,55 @@ ajax 처리
  ajax ==> html
  
  완성된 html이 올 때 유용  -> 만들어야 할 html 코드가 복잡할 때 유용하다 
+ 
+ 
+ ==================================================================
+ 
+ AOP(Aspect Oriented Programing)  ** 정의 이해 
+ 여러 클래스로 분산된 책임(기능)을 별도의 관점으로 분리/캡슐화하는 프로그래밍 방법
+	==> 관점 지향 프로그래밍
+	
+	Transaction : 트랜잭션 제어로 인한 반복되는 로직
+	Logging : 각 서비스별 호출 카운트 집계
+	
+	.class에서 핵심기능(SQL, business logic )과 부가기능 (db connextion) 혼재
+		--> OOP : 하나의클래스는 하나의 관심사에 집중
+	. 순수 OOP에서는 핵심기능과 부가기능을 분리하기 어렵다 -> AOP의 필요 배경
+	. AOP는 OOP를 대체하는 개념이 아닌 보완하는 개념 
+	
+	 
+ 선언적 트랜잭션 - spring 에서 service
+ - 선언적 트랜잭션의 기술이 AOP를 기본으로 한다
+ - AOP 자체는 개발자가 잘 안쓴다 (선언적 트랜잭션때문에 배움) 
+ * 개념적으로 이해 (많이 사용하지 않지만 개념 상 중요)
+ 
+ ASPECT J 라는 라이브러리 - spring은 일부만 제어하므로 사용할 수 있는 것이 제한적이다
+ 
+ - 용어 (사진)
+  . Aspect 
+  . Adivce : 공통관심 기능을 언제 핵심 로직에 적용할 지 정의 ( 메소드 호출 전, 끝나는 시점 등의 적용할 범위- 설정)
+  . joinpoint : Advice가 적용될 시점/지점 (메소드로 생각 - 어떤 메소드에 적용될지의 시점)
+  . pointCut : joinpoint의 식별을 정의 (어떤클래스에있는 어떤 메소드에 표시할건지 )
+  . Weaving : Advice(Aspect)를 핵심 로직 코드에 삽입하는것
+  . advisor : advice를 지칭(spring aop에서만 사용하는 개념)
+  . proxy : 핵심 기능을 구현한 객체에 advice가 적용된 객체 - 원래 써야하는 것의 대체자
+   
+   - advice 사용가능한 종류 5가지 (before / after / around-한번에 사용 : 대상객체의 실행 전, 후 또는 예외 발생시점에 공통기능 실행)
+   - pointcut : advice가 적용되는 joinpoint의 부분 - @Pointcut
+   
+   * : 마스킹 문자 - 어떤것이든 다온다 
+   ddit.board.service.UserService.*(..) -> userService 안에 모든 클래스를 지칭  / (..) 는 인자가 어떤것이 와도 상관없다는 의미 
+   - service가 2개이상의 dao(sql)를 실행 
+   
+   ddit.board.service.*Service.*(..) 
+   ==> ddit.board.service 패키지내에 존재하는 클래스 중 service로 끝나는 클래스들의 모든 메소드(인자 관계 없음) 를 의미
+   
+   
+   
+   
+  
+  
+  
+   
+   
+   
