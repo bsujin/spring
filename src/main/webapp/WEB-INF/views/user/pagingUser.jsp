@@ -87,6 +87,7 @@
 							</div>
 
 							<a id="insertBtn" class="btn btn-default pull-right">사용자 등록</a>
+							<a href="${cp }/user/excelDownload" class="btn btn-default pull-right">전체 사용자 엑셀 다운로드</a>
 							<div class="text-center">
 								<ul class="pagination">
 									<%-- pagination 값이 4이므로 1부터 4까지 4번 반복된다

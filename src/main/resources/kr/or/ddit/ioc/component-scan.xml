@@ -16,7 +16,7 @@
 			annotation == 주석 
 			
 	-->
-	<context:component-scan base-package="kr.or.ddit"/>
+	<context:component-scan base-package="kr.or.seeavi"/>
 	
 	
 

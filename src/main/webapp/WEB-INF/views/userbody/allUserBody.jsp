@@ -35,6 +35,7 @@
 
 						<form action="${cp }/userbody/registUserTiles" method="get">
 						<input type="submit" class="btn btn-default pull-right" value="사용자 등록">
+						<a href="${cp }/user/excelDownload" class="btn btn-default pull-right">전체 사용자 엑셀 다운로드</a>
 						</form>
 
 						<div class="text-center">

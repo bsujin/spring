@@ -5,20 +5,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="">
-<meta name="author" content="">
 
 <title>registUsr.Jsp</title>
 
 <%@ include file="/WEB-INF/views/common/common_lib.jsp"%>
-
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -52,22 +42,9 @@ function initData(){
 	$("#zipcode").val("34940");
 }
 </script>
-</head>
-
-<body>
 	
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	
-	<div class="container-fluid">
-		<div class="row">
-
-			<div class="col-sm-3 col-md-2 sidebar">
-				<%@ include file="/WEB-INF/views/common/left.jsp"%>
-			</div>
-
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				user : [${userVo }]
-				spring message :  <spring:message code="LANG"/>
+				spring message :  <spring:message code="LANG"/>   <!-- os버전 언어설정 -->  
 				spring message :  <spring:message code="GREETING" arguments="brown"/>
 				<form class="form-horizontal" role="form"
 					  action="${cp }/user/registUser" method="post" enctype="multipart/form-data">
@@ -77,7 +54,7 @@ function initData(){
 						<input type="text" class="form-control" id="userid" name="userid"
 								placeholder="사용자 아이디" value="${param.userid}"/>
 								
-						<!-- 	어떤 필드에 error 가 있냐 없냐의 조건 (userVo에 담겨져 있으므로)   -->
+						<!-- 	어떤 필드에 error 가 있냐 없냐의 조건 (userVo에 담겨져 있으므로) / error 코드    -->
 							<span style="color:red"><form:errors path="userVo.userid"/></span>
 							
 						<input type="file" class="form-control" name="profile"/>
@@ -149,8 +126,3 @@ function initData(){
 						</div>
 					</div>
 				</form>
-			</div>
-		</div>
-	</div>
-</body>
-</html>

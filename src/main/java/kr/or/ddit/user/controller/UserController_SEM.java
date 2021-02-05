@@ -129,19 +129,19 @@ public class UserController_SEM {
 	// bindingResult 객체는 command 객체 바로 뒤에 인자로 기술해야 한다 
 	@RequestMapping(path="registUser", method=RequestMethod.POST)
 // 1.	public String regist(UserVo userVo, BindingResult result, MultipartFile profile, Model model) {
-//2.
+//2								//검증메서드 2 @Valid
 		public String regist(@Valid UserVo userVo, BindingResult result, MultipartFile profile, Model model) {
 		
-		//검증하는 메서드
-		new UserVoValidator().validate(userVo, result);
+		//검증하는 메서드 1.
+//		new UserVoValidator().validate(userVo, result);
 		//여기에서는 메세지가 담겨 있다 ( 참조 객체 이므로 ) 
 		
 		if(result.hasErrors()) {
 			// redirect 로 보내면 다른 페이지로 가므로 문제가 발생될 수 있음 forward
 			logger.debug("result has error");
+			logger.debug("result : {}", result);
 			return "user/registUser";
 		}
-		
 		int insertCnt = 0;
 		String originalFilename = "";
 		String filename = "";
@@ -152,24 +152,22 @@ public class UserController_SEM {
 			
 			userVo.setFilename(originalFilename);
 			userVo.setRealfilename("d:\\upload\\" + filename);
-			
+			logger.debug("file:{}", filename);
 			try {
 				profile.transferTo(new File(userVo.getRealfilename()));
-				insertCnt = userService.registerUser(userVo);
+				
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		//����� ����� ���������� �� ���	==> ����� ����¡ ����Ʈ�� �̵�(1������)
+		insertCnt = userService.registerUser(userVo);
 		if(insertCnt == 1) {
 			return "redirect:/user/pagingUser";
 		}
-		//����� ������ ������������ �� ��� ==> ����� ��� �������� �̵�(����ڰ� �Է��� �� ����)
 		else {
-			return "user/userRegist";
+			return "user/registUser";
 		}
-	}
+		}
 	
 	@RequestMapping("deleteUser")
 	public String delete(String userid) {
@@ -205,43 +203,47 @@ public class UserController_SEM {
 	}
 
 	@RequestMapping("profile")
-	public void profile(HttpServletResponse resp, String userid, HttpServletRequest req) {
-		// userid 파라미터를 이용하여 userService 객체를 통해 사용자의 사진 파일 이름을 획득
-
-		resp.setContentType("image");
-		UserVo userVo = userService.selectUser(userid);
-		logger.debug("userVo : {}", userVo);
+	public void profileDownload(String userid, HttpServletRequest req, HttpServletResponse resp) {
+		
+		UserVo userVo= userService.selectUser(userid);
+		
 		String path = "";
-		if (userVo.getRealfilename() == null) {
-			// application 객체 - 지원해준는것이 없어서 servletRequest를 받아온다
+		String filename = "";
+		if(userVo.getRealfilename() == null) {
+			filename= "unknown.png";
+			//webapp에 넣기
 			path = req.getServletContext().getRealPath("/image/unknown.png");
-		} else {
-			path = userVo.getRealfilename();
 		}
-
-		// 파일 입출력을 통해 사진을 읽어들여 response 객체의 ouputStream으로 응답을 생성한다
-		logger.debug("path-profile{}", path);
-
+		else {
+			path = userVo.getRealfilename();
+			filename= userVo.getFilename();
+		}
+		
+		resp.setHeader("Content-Disposition", "attachment; filename=" + filename);
+		
+		// userid 파라미터를 이용하여
+		// userService 객체를 통해 사용자의 사진 파일 이름을 획득
+		// 파일 입출력을 통해 사진을 읽어들여 resp객체의 outputStream으로 응답 생성
+		
+		logger.debug("path : {} ", path);
+		
 		try {
-
 			FileInputStream fis = new FileInputStream(path);
-			ServletOutputStream sos = resp.getOutputStream();
-
+			ServletOutputStream sos =  resp.getOutputStream();
+			
 			byte[] buff = new byte[512];
-			// buff사이즈만큼 읽어준다 - 더이상 읽을 데이터가 없을때까지 읽어줌
-			while (fis.read(buff) != -1) {
+			
+			while(fis.read(buff) != -1) {
 				sos.write(buff);
 			}
-
-			// 사용한 자원을 반납해준다
+			
 			fis.close();
 			sos.close();
-		} catch (Exception e) {
+			
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 	
 }
 

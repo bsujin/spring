@@ -47,9 +47,10 @@
 		<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 			<property name="order" value="1"/>
 		</bean>
-		
 		<!-- view 객체, 사용할 때 id를 적어주면 된다  -->
 		<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+		
+<!-- 		filedownload view -->
 		<bean id="fd" class="kr.or.ddit.view.FileDownloadView"/>
 		<bean id="userExcelDownloadView" class="kr.or.ddit.view.ExcelDownloadView"></bean>
 		

@@ -171,9 +171,6 @@ public class UserBodyController {
 	}
 	
 	
-	
-	
-	
 }
 
 

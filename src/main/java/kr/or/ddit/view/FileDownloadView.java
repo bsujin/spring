@@ -14,6 +14,7 @@ import org.springframework.web.servlet.view.AbstractView;
 // 								  filename = 업로드 당시의 파일명을 속성으로 저장한다 
 public class FileDownloadView extends AbstractView{
 
+	
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -37,7 +38,6 @@ public class FileDownloadView extends AbstractView{
 		fis.close();
 		sos.close();
 	}
-	
 	
 
 }

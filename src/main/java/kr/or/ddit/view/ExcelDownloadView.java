@@ -25,12 +25,13 @@ public class ExcelDownloadView extends AbstractView {
 		// Header : List<String>
 		// data : List<UserVo>
 
-		List<String> header = (List<String>) model.get("header");
-		List<UserVo> data = (List<UserVo>) model.get("data");
+		List<String> header = (List<String>) model.get("header");		//controller에서 설정
+		List<UserVo> data = (List<UserVo>) model.get("data");			// 
 
-		// excel 파일 생성
+		// excel 파일 생성 (내장객체) 
 		XSSFWorkbook book = new XSSFWorkbook();
-		// 시트생성 ss
+		
+		// 시트생성 - 시트 명 (users) 
 		Sheet sheet = book.createSheet("users");
 		// row / col 생성
 		int rownum = 0;
@@ -46,16 +47,26 @@ public class ExcelDownloadView extends AbstractView {
 		// data는 나중에
 		data.size();
 
-		for (UserVo d : data) {
-			row = sheet.createRow(rownum++);
+		// sem 방법
+		// data
+		for (UserVo user : data) {
 			colnum = 0;
-			Cell cell = row.createCell(colnum++);
-			cell.setCellValue(d.getUserid());
-			cell = row.createCell(colnum++);
-			cell.setCellValue(d.getUsernm());
-			cell = row.createCell(colnum++);
-			cell.setCellValue(d.getAlias());
+			Row r = sheet.createRow(rownum++);
+			r.createCell(colnum++).setCellValue(user.getUserid());
+			r.createCell(colnum++).setCellValue(user.getUsernm());
+			r.createCell(colnum++).setCellValue(user.getAlias());
 		}
+		
+//		for (UserVo d : data) {
+//			row = sheet.createRow(rownum++);
+//			colnum = 0;
+//			Cell cell = row.createCell(colnum++);
+//			cell.setCellValue(d.getUserid());
+//			cell = row.createCell(colnum++);
+//			cell.setCellValue(d.getUsernm());
+//			cell = row.createCell(colnum++);
+//			cell.setCellValue(d.getAlias());
+//		}
 		book.write(response.getOutputStream());
 	}
 }
