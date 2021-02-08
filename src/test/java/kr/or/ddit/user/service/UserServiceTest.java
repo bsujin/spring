@@ -44,12 +44,21 @@ public class UserServiceTest extends ModelTestConfig {
 		userService.registerUser(userVo);
 		// 신규 입력 테스트를 위해 테스트 과정에서 입력된 데이터를 삭제 
 		// "ddit_n"이라는 사용자는 무조건 삭제를 한다 
-		userService.deleteUser("ddit_n");
+//		userService.deleteUser("ddit_n");
 		
 	}
 	@After
 	public void teadDown() {
 		userService.deleteUser("test");
+	}
+	
+	@Test
+	public void registUser() {
+		UserVo userVo = new UserVo("aaaaa","대덕인재","test",new Date(), "개발원 m", "대전시 중구 중앙로76","4층 대덕인재개발원","34940","brown.png","uuid-generated-filename.png");
+		int cnt = userService.registerUser(userVo);
+		
+		assertEquals(1, cnt);
+		
 	}
 	
 	

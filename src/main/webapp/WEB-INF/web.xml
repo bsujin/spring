@@ -33,7 +33,9 @@
 		<!-- <init-param>은 이 안에있는 서블릿에 대한 파라미터 - 자식 -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:/kr/or/ddit/config/spring/application-context.xml
+			<param-value>
+			classpath:/kr/or/ddit/config/spring/application-context.xml
+<!-- 			classpath:/kr/or/ddit/config/spring/interceptor-context.xml -->
 			</param-value> <!-- 어떤 설정 파일을 쓸 것인지 (자식 컨테이너에 쓸 설정파일) -->
 		</init-param>
 	</servlet>

@@ -43,9 +43,5 @@ public class PerformanceCheckInterceptor extends HandlerInterceptorAdapter{
 		
 		logger.debug("duration : {} " , endTime-startTime);
 	}
-	
-	
-	
-	
 
 }
