@@ -1,0 +1,14 @@
+1. pom.xml (dependency)
+2. reader, writer, processor
+
+reader => ItemReader 구현
+writer => ItemWriter 구현
+processor => ItemProcessor 구현 
+
+
+k ⇒ key
+v ⇒ value
+t ⇒ type 
+i ⇒ in
+o ⇒ out
+
