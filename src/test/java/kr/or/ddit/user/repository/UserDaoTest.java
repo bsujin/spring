@@ -5,19 +5,20 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.test.config.ModelTestConfig;
 import kr.or.ddit.user.model.UserVo;
-import kr.or.ddit.user.service.UserService;
-import kr.or.ddit.user.service.UserServiceImpl;
 
 // 스프링 환경에서 junit 코드를 실행 ⇒ junit 코드도 스프링 빈으로 등록
 // 기본값은 설정파일 위치를 지정하게 되어있다 
@@ -27,9 +28,13 @@ public class UserDaoTest extends ModelTestConfig{
 	@Resource(name="userDao")
 	private UserDao userDao;
 	
+	@Resource(name="dataSource")
+	private DataSource dataSource;
+	
 	@Before
 	public void setup() {
-		UserVo userVo = new UserVo("test","대덕인재","test",  "개발원 m", "대전시 중구 중앙로76","4층 대덕인재개발원","34940","brown.png","uuid-generated-filename.png",new Date(), new Date(),1);
+		
+		UserVo userVo = new UserVo("test","대덕인재","test", new Date(), "개발원 m", "대전시 중구 중앙로76","4층 대덕인재개발원","34940","brown.png","uuid-generated-filename.png");
 		userDao.registerUser(userVo);
 		// 신규 입력 테스트를 위해 테스트 과정에서 입력된 데이터를 삭제 
 		// "ddit_n"이라는 사용자는 무조건 삭제를 한다 
